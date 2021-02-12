@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://examples/examples.gd" type="Script" id=1]
+
+[node name="Examples" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_server_buttons = NodePath("VBoxContainer/ServerButtons")
+_server_status = NodePath("VBoxContainer/ServerStatus")
+_port = NodePath("VBoxContainer/HBoxContainer/Port")
+_stop_server_button = NodePath("VBoxContainer/HBoxContainer/StopServer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 24.0
+
+[node name="PortLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 26.0
+margin_bottom = 19.0
+text = "Port"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Port" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+margin_left = 30.0
+margin_right = 104.0
+margin_bottom = 24.0
+min_value = 1.0
+max_value = 65535.0
+value = 8008.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StopServer" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 108.0
+margin_right = 192.0
+margin_bottom = 24.0
+grow_horizontal = 0
+text = "Stop Server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ServerStatus" type="Label" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 300.0
+margin_bottom = 42.0
+
+[node name="ServerButtons" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 46.0
+margin_right = 114.0
+margin_bottom = 66.0
+size_flags_horizontal = 0
+
+[node name="DumpingServer" type="Button" parent="VBoxContainer/ServerButtons"]
+margin_right = 114.0
+margin_bottom = 20.0
+text = "Dumping Server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/StopServer" to="." method="_stop_server"]
+[connection signal="pressed" from="VBoxContainer/ServerButtons/DumpingServer" to="." method="_start_server" binds= [ "dumping_server.gd" ]]
